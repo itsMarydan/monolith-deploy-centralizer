@@ -1,0 +1,58 @@
+version: '3.9'
+services:
+  website:
+    image: blueinit/dooakmer:2.1.1
+    restart: always
+    container_name: website
+    environment:
+      - PORT=8080
+    ports:
+      - 8080:8080
+    depends_on:
+      - console
+      - backend
+      - proxy
+    # Configuration for first app
+  console:
+    image: blueinit/console:1.1.7
+    restart: always
+    container_name: console
+    environment:
+      - NODE_ENV=production
+      - PUBLIC_URL=/app/console
+      - PORT=3000
+      - AUTH=/auth/api
+      - NUB=/nub/api
+      - DUTY=/files/api
+      - NGINX_PROXY=/console  
+      - MANAGER=/manager/api
+      - REACT_APP_AUTH=/auth/api
+      - REACT_APP_NUB=/nub/api
+      - REACT_APP_DUTY=/files/api
+      - REACT_APP_MANAGER=/manager/api  
+      - REACT_APP_NGINX_PROXY=/console     
+    ports:
+      - "4000:4000" 
+    depends_on:
+      - backend
+      - proxy
+    # Configuration for second app
+  backend:
+    image: blueinit/centralizer-monolith:1.0.0
+    restart: always
+    container_name: backend
+    environment:
+      - PORT=5000    
+    ports:
+      - 5000:5000
+    depends_on:
+      - proxy
+    # Configuration for third app
+  proxy:
+    image: blueinit/proxy:1.0.8
+    restart: always
+    container_name: proxy
+    ports:
+      - 80:80
+
+

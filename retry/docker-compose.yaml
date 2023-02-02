@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  proxy:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: blueinit/proxy:1.0.8
+    ports:
+      - 80:80
