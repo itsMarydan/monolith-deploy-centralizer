@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   website:
-    image: blueinit/dooakmer:2.1.2
+    image: blueinit/dooakmer:2.1.1
     restart: always
     container_name: website
     environment:
@@ -15,11 +15,12 @@ services:
       - proxy
     # Configuration for first app
   console:
-    image: blueinit/console:1.2.0
+    image: blueinit/console:1.1.9
     restart: always
     container_name: console
     environment:
       - NODE_ENV=production
+      - PUBLIC_URL=/console
       - PORT=3000
       - AUTH=/auth/api
       - NUB=/nub/api
@@ -37,7 +38,7 @@ services:
       - proxy
     # Configuration for second app
   backend:
-    image: blueinit/centralizer-monolith:1.1.0
+    image: blueinit/centralizer-monolith:1.0.1
     restart: always
     container_name: backend
     environment:

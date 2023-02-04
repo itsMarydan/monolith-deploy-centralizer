@@ -5,6 +5,6 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: blueinit/proxy:1.0.8
+    image: blueinit/dooakmer-proxy:1.0.0
     ports:
       - 80:80
